@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Kurslar{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Kurslar</h1>
+
+<form class="row g-2 align-items-end mb-3" method="get">
+
+  <!-- Saralash -->
+  <div class="col-md-2">
+    <label class="form-label">Saralash</label>
+    <select name="o" class="form-select">
+      <option value="">— tanlanmagan —</option>
+      <option value="new" {% if current.o == "new" %}selected{% endif %}>Yangi qo‘shilgan</option>
+      <option value="price" {% if current.o == "price" %}selected{% endif %}>Narx arzon → qimmat</option>
+      <option value="-price" {% if current.o == "-price" %}selected{% endif %}>Narx qimmat → arzon</option>
+    </select>
+  </div>
+
+  <!-- Qidiruv -->
+  <div class="col-md-3">
+    <label class="form-label">Qidiruv</label>
+    <input type="text" name="q" value="{{ current.q }}"
+           class="form-control" placeholder="Nomi yoki o‘qituvchi">
+  </div>
+
+  <!-- Kategoriya -->
+  <div class="col-md-2">
+    <label class="form-label">Kategoriya</label>
+    <select name="cat" class="form-select">
+      <option value="">— barchasi —</option>
+      {% for c in categories %}
+        <option value="{{ c.id }}" {% if current.cat == c.id|stringformat:"s" %}selected{% endif %}>
+          {{ c.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- Level -->
+  <div class="col-md-2">
+    <label class="form-label">Level</label>
+    <select name="lvl" class="form-select">
+      <option value="">— barchasi —</option>
+      <option value="beginner" {% if current.lvl == "beginner" %}selected{% endif %}>Beginner</option>
+      <option value="intermediate" {% if current.lvl == "intermediate" %}selected{% endif %}>Intermediate</option>
+      <option value="advanced" {% if current.lvl == "advanced" %}selected{% endif %}>Advanced</option>
+    </select>
+  </div>
+
+  <!-- O‘qituvchi -->
+  <div class="col-md-2">
+    <label class="form-label">O‘qituvchi</label>
+    <select name="tch" class="form-select">
+      <option value="">— barchasi —</option>
+      {% for t in teachers %}
+        <option value="{{ t.id }}">
+    {{ t.first_name }} {{ t.last_name }}
+</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- Online -->
+  <div class="col-md-1">
+    <div class="form-check mt-4">
+      <input class="form-check-input" type="checkbox" name="onl" value="1"
+             {% if current.onl == "1" %}checked{% endif %}>
+      <label class="form-check-label">Online</label>
+    </div>
+  </div>
+
+  <!-- Tugmalar -->
+  <div class="col-md-12 mt-2">
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <a href="{% url 'school:course_list' %}" class="btn btn-secondary">Tozalash</a>
+    <a href="{{ add_url }}" class="btn btn-success float-end">+ Kurs qo‘shish</a>
+  </div>
+</form>
+
+<hr>
+
+<!-- Kurslar ro‘yxati -->
+<div class="row">
+  {% for course in courses %}
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ course.title }}</h5>
+          <p class="card-text">
+            {{ course.category.name }} — {{ course.get_level_display }}<br>
+            <strong>{{ course.price }} so‘m</strong>
+          </p>
+          <a href="{{ course.get_absolute_url }}" class="btn btn-primary btn-sm">Ko‘rish</a>
+          <a href="{% url 'school:course_edit' course.slug %}" class="btn btn-warning btn-sm">Tahrirlash</a>
+          <a href="{% url 'school:course_delete' course.slug %}" class="btn btn-danger btn-sm">O‘chirish</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>Kurs topilmadi.</p>
+  {% endfor %}
+</div>
+
+<!-- Pagination -->
+<div class="mt-3">
+  {% if is_paginated %}
+    <nav>
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Oldingi</a>
+          </li>
+        {% endif %}
+
+{% for num in paginator.page_range %}
+          {% if page_obj.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Keyingi</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+:root{
+    --brand:#2563eb;
+    --brand-2:#7c3aed;
+}
+body{ background: #f8fafc;}
+.hero{ background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2 ) 100%); color: #fff;}
+.navbar-brand strong{ letter-spacing:.3px}
+footer{ background: #fff }
+.hero-illus{ max-height: 160px }

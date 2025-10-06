@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ course.title }} {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-9">
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3>{{ course.title }}</h3>
+
+                    {% if course.is_online %}
+                        <span class="badge bg-info">Online</span>
+                    {% endif %}
+
+                    <ul class="text-muted small mb-3">
+                        <li>Kategoriya: <a href="{% url 'course_list' %}?cat={{ course.category.id }}">{{ course.category }}</a></li>
+                        <li>Daraja: {{ course.get_level_display }}</li>
+                        <li>Davomiylik: {{ course.duration_months }} oy</li>
+                        <li>Narx: <strong>{{ course.price|floatformat:2 }} so'm</strong></li>
+                        <li>Guruh hajmi: {{ course.max_students }} ta</li>
+                    </ul>
+
+                    <p>{{ course.description|linebreaks }}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>O‘qituvchi</h5>
+                    <p>{{ course.teacher.first_name }} {{ course.teacher.last_name }}</p>
+                    <p class="text-muted">{{ course.teacher.bio }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

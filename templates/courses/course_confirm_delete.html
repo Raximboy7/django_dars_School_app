@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Kursni o‘chirish{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">Kursni o‘chirish</h1>
+  <p><strong>{{ object.title }}</strong> nomli kursni o‘chirishni xohlaysizmi?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Ha, o‘chirish</button>
+    <a href="{% url 'school:course_list' %}" class="btn btn-secondary">Bekor qilish</a>
+  </form>
+{% endblock %}

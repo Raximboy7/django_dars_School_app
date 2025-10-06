@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">{% if object %}Kursni tahrirlash{% else %}Yangi kurs qo'shish{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Saqlash</button>
+        <a href="{% url 'school:course_list' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="hero shadow-sm p-5 mb-4 bg-primary text-white rounded-3">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <h1 class="display-6 mb-3">Django o‘rganishni bugun boshlang!</h1>
+        <p class="lead text-light">haftada — MVT, shablonlar, statik fayllar va chiroyli UI.</p>
+        <a href="#" class="btn btn-primary">Kursni davom ettirish</a>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container mb-4">
+  <h4>Bu haftada nimalarni o‘rganasiz?</h4>
+  <ul class="list-group list-group-flush mt-3">
+    <li class="list-group-item">MVT arxitektura va URL → View→Template oqimi</li>
+    <li class="list-group-item">'settings.py' da templates/static sozlamalari</li>
+    <li class="list-group-item">'base.html' + 'includes' bilan chiroyli UI</li>
+    <li class="list-group-item">'home' va 'about' sahifalari</li>
+  </ul>
+</section>
+{% endblock %}

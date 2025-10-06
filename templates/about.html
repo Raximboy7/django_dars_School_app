@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title|default:"Biz haqimizda" }}{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Biz haqimizda</h1>
+<p>Bu o'quv loyha - Django asoslarini bosqichma-bosqich o'rgatish uchun yaratilgan. Keyingi haftalarda model, admin, CRUD, auth, API va deploy mavzularini oʻtamiz.</p>
+
+<div class="row g-3 mt-1">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Maqsad</h5>
+        <p class="card-text">3 oy ichida mini/Academy tizimini noldan qurish.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Uslub</h5>
+        <p class="card-text">Har hafta: nazariya + amaliy lab + uyga vazifa + kichik loyiha bosqichi.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
